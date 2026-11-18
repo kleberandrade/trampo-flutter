@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid}/workspace/current {
+      function owner() { return request.auth != null && request.auth.uid == uid; }
+      function valid() {
+        return request.resource.data.keys().hasOnly(['revision', 'payload'])
+          && request.resource.data.revision is int
+          && request.resource.data.payload is map
+          && request.resource.data.payload.version == 1
+          && request.resource.data.payload.language in ['pt', 'en']
+          && request.resource.data.payload.clients is list
+          && request.resource.data.payload.jobs is list;
+      }
+      allow read: if owner();
+      allow create: if owner() && valid() && request.resource.data.revision == 1;
+      allow update: if owner() && valid() && request.resource.data.revision == resource.data.revision + 1;
+      allow delete: if false;
+    }
+  }
+}

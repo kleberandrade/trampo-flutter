@@ -31,7 +31,6 @@
 /build/
 
 # Web related
-lib/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols
@@ -44,3 +43,11 @@ app.*.map.json
 
 # Keys
 /android/app/google-services.json
+
+# Local emulator state and service configuration
+*-debug.log
+firebase-debug.log*
+firebase-export-*/
+.firebaserc
+/ios/Runner/GoogleService-Info.plist
+/coverage/

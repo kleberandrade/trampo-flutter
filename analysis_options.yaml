@@ -1,0 +1,8 @@
+include: package:flutter_lints/flutter.yaml
+analyzer:
+  exclude:
+    - docs/pubspec-legacy.yaml
+    - build/**
+    - android/**
+    - ios/**
+    - web/**

@@ -1,0 +1,19 @@
+{
+  "name": "Trampo — service workspace",
+  "short_name": "Trampo",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f5f6f1",
+  "theme_color": "#086b5c",
+  "description": "Trampo — clientes, serviços e agenda. Demonstração local.",
+  "orientation": "any",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "brand.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
