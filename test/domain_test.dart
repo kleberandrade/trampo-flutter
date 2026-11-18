@@ -132,4 +132,23 @@ void main() {
       throwsFormatException,
     );
   });
+  test('restore rejects an active event before the reserved start', () {
+    final now = DateTime(2026, 11, 17, 12);
+    final start = now.add(const Duration(days: 1));
+    final job = Job.create(
+      id: 'early',
+      clientId: 'c',
+      title: 'Repair',
+      budget: Budget(100, 0, 0),
+      now: now,
+    ).schedule(start, start.add(const Duration(hours: 1)), [], now);
+    final invalid = job.toJson();
+    invalid['status'] = 'active';
+    (invalid['history'] as List).add({
+      ...job.history.last.toJson(),
+      'status': 'active',
+      'action': 'status',
+    });
+    expect(() => Job.fromJson(invalid), throwsFormatException);
+  });
 }

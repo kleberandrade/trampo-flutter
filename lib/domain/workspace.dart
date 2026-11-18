@@ -336,6 +336,12 @@ class Job {
           event.total > Money.maxCents) {
         throw const FormatException('history');
       }
+      if ((event.status == JobStatus.active &&
+              (job.start == null || event.at.isBefore(job.start!))) ||
+          (event.action == 'scheduled' &&
+              (job.start == null || event.at.isAfter(job.start!)))) {
+        throw const FormatException('history-dates');
+      }
       if (i == 0) continue;
       final previous = job.history[i - 1];
       if (event.at.isBefore(previous.at) ||
